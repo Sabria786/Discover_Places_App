@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: 'offerdetail',
     loadChildren: () => import('./offerdetail/offerdetail.module').then( m => m.OfferdetailPageModule)
+  },
+  {
+    path: 'newoffer',
+    loadChildren: () => import('./newoffer/newoffer.module').then( m => m.NewofferPageModule)
   }
 ];
 
