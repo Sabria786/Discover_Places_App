@@ -11,9 +11,8 @@ import { PlaceService } from 'src/app/tab1/place.service';
 export class OfferdetailPage implements OnInit {
   place: Place;
   id: string;
-
   constructor(private route: ActivatedRoute,
-    private placeService:PlaceService) { }
+    private placeService: PlaceService) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('placeId');

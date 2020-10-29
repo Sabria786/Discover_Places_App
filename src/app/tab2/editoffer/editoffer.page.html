@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tab2/offerdetail/'+place.id'"></ion-back-button>
     </ion-buttons>
-    <ion-title>New Offer</ion-title>
+    <ion-title>Edit Offer</ion-title>
     <ion-buttons slot="primary">
-      <ion-button (click)="onCreateOffer()" [disabled]="!form.valid">
+      <ion-button (click)="onEditOffer()" [disabled]="!form.valid">
         <ion-icon name="checkmark" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -16,14 +16,14 @@
   <form [formGroup]="form">
     <ion-grid>
       <ion-row>
-        <ion-col size-md="6" offset-md="3">
+        <ion-col>
           <ion-item>
             <ion-label position="floating">Title</ion-label>
-            <ion-input type="text" autocomplete autocorrect
+            <ion-input type="text autocomplete autocorrect"
             formControlName="title"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Short Description</ion-label>
+            <ion-label position="floating">Description</ion-label>
             <ion-textarea rows="3"
             formControlName="description"></ion-textarea>
           </ion-item>

@@ -1,52 +1,60 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Place } from 'src/app/tab1/place.model';
 import { PlaceService } from 'src/app/tab1/place.service';
 
 @Component({
-  selector: 'app-newoffer',
-  templateUrl: './newoffer.page.html',
-  styleUrls: ['./newoffer.page.scss'],
+  selector: 'app-editoffer',
+  templateUrl: './editoffer.page.html',
+  styleUrls: ['./editoffer.page.scss'],
 })
-export class NewofferPage implements OnInit {
-  form: FormGroup
-  constructor(private placeService: PlaceService,
+export class EditofferPage implements OnInit {
+  place: Place;
+  id:string;
+  form: FormGroup;
+
+  constructor(private route: ActivatedRoute,
+    private placeService: PlaceService,
     private router: Router) { }
 
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('placeId');
+    this.place = this.placeService.getPlace(this.id);
     this.form = new FormGroup({
-      title: new FormControl(null, {
+      title: new FormControl(this.place.title, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-      description: new FormControl(null, {
+      description: new FormControl(this.place.description, {
         updateOn: 'blur',
         validators: [Validators.required, Validators.maxLength(180)]
       }),
-      price: new FormControl(null, {
+      price: new FormControl(this.place.price, {
         updateOn: 'blur',
         validators: [Validators.required, Validators.min(1)]
       }),       
-      availableFrom: new FormControl(null, {
+      availableFrom: new FormControl(this.place.availableFrom, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-      availableTo: new FormControl(null, {
+      availableTo: new FormControl(this.place.availableTo, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),      
     });
   }
-  onCreateOffer() {
+  onEditOffer() {
     console.log(this.form);
-    this.placeService.addPlace(
+    this.placeService.updateOffer(
+      this.id,
       this.form.value.title,
       this.form.value.description,
       this.form.value.price,
       new Date(this.form.value.availableFrom),
-      new Date(this.form.value.availableTo)
-    );
+      new Date(this.form.value.availableTo));
     this.form.reset();
     this.router.navigate(['/tabs/tab2']);
-  }
+  }  
+
 }
